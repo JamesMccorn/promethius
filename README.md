@@ -3,7 +3,7 @@
  GitHub-ready stack for Prometheus, Grafana, node-exporter, and cAdvisor. Keep secrets in `.env` (not committed).
 
 ## Files
-- `docker-compose.yml` – Stack definition (mounts `prometheus/prometheus.yml`; uses `.env` for Grafana creds). cAdvisor stays internal (no host port) since Prometheus scrapes it over the network.
+- `docker-compose.yml` – Stack definition (mounts `prometheus/prometheus.yml`; uses `.env` for Grafana creds). cAdvisor stays internal (no host port) since Prometheus scrapes it over the network. Prometheus and Grafana are routed via Traefik (no direct host ports).
 - `prometheus/prometheus.yml` – Scrape config; edit here when adding targets.
 - `grafana/provisioning/datasources.yml` – Auto-wires Prometheus into Grafana.
 - `grafana/provisioning/dashboards.yml` – Tells Grafana to load dashboards from `grafana/dashboards/`.
@@ -21,9 +21,9 @@
    ```sh
    docker compose up -d
    ```
-4. Access:
-   - Prometheus: http://<host>:9090 (or through Traefik if labeled)
-   - Grafana: http://<host>:3000 (user/pass from `.env`)
+4. Access (via Traefik):
+   - Prometheus: http://prometheus.duploflow.com (adjust host if needed)
+   - Grafana: http://grafana.duploflow.com (user/pass from `.env`)
 
 ## Updating scrape targets
 1. Edit `prometheus/prometheus.yml`.
