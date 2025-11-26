@@ -23,7 +23,7 @@ services:
     ports:
       - "9090:9090" # comment out if routed via Traefik
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus:/etc/prometheus:ro # mount config directory to avoid missing-file mount issues in Portainer
       - prometheus_data:/prometheus
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"

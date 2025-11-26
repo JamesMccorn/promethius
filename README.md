@@ -1,10 +1,10 @@
 # Monitoring Stack (Prometheus + Grafana)
 
-GitHub-ready stack for Prometheus, Grafana, node-exporter, and cAdvisor. Keep secrets in `.env` (not committed).
+ GitHub-ready stack for Prometheus, Grafana, node-exporter, and cAdvisor. Keep secrets in `.env` (not committed).
 
 ## Files
-- `docker-compose.yml` – Stack definition (mounts `prometheus.yml`; uses `.env` for Grafana creds).
-- `prometheus.yml` – Scrape config; edit here when adding targets.
+- `docker-compose.yml` – Stack definition (mounts `prometheus/prometheus.yml`; uses `.env` for Grafana creds).
+- `prometheus/prometheus.yml` – Scrape config; edit here when adding targets.
 - `grafana/provisioning/datasources.yml` – Auto-wires Prometheus into Grafana.
 - `grafana/provisioning/dashboards.yml` – Tells Grafana to load dashboards from `grafana/dashboards/`.
 - `grafana/dashboards/` – Place exported Grafana dashboard JSON files here.
@@ -26,14 +26,14 @@ GitHub-ready stack for Prometheus, Grafana, node-exporter, and cAdvisor. Keep se
    - Grafana: http://<host>:3000 (user/pass from `.env`)
 
 ## Updating scrape targets
-1. Edit `prometheus.yml`.
+1. Edit `prometheus/prometheus.yml`.
 2. Commit and push.
 3. On the server: `git pull` and restart Prometheus (e.g., `docker restart prometheus` or via Portainer). Prometheus will load the new config.
 
 ## Optional targets
-- `n8n` and `traefik` jobs are included in `prometheus.yml`; comment or adjust to match your service names and ports.
+- `n8n` and `traefik` jobs are included in `prometheus/prometheus.yml`; comment or adjust to match your service names and ports.
 
 ## Why this avoids lost configs
-- `docker-compose.yml` documents the `prometheus.yml` mount.
+- `docker-compose.yml` documents the `prometheus/prometheus.yml` mount.
 - `.env` keeps credentials out of Git.
 - README reminds how to deploy and update so Future-You never forgets.
