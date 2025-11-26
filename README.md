@@ -3,7 +3,7 @@
  GitHub-ready stack for Prometheus, Grafana, node-exporter, and cAdvisor. Keep secrets in `.env` (not committed).
 
 ## Files
-- `docker-compose.yml` – Stack definition (mounts `prometheus/prometheus.yml`; uses `.env` for Grafana creds).
+- `docker-compose.yml` – Stack definition (mounts `prometheus/prometheus.yml`; uses `.env` for Grafana creds). cAdvisor stays internal (no host port) since Prometheus scrapes it over the network.
 - `prometheus/prometheus.yml` – Scrape config; edit here when adding targets.
 - `grafana/provisioning/datasources.yml` – Auto-wires Prometheus into Grafana.
 - `grafana/provisioning/dashboards.yml` – Tells Grafana to load dashboards from `grafana/dashboards/`.
