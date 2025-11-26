@@ -12,10 +12,6 @@ volumes:
   prometheus_data:
   grafana_data:
 
-configs:
-  prometheus_config:
-    file: ./prometheus/prometheus.yml
-
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -25,11 +21,8 @@ services:
       - monitoring
       - proxy
     volumes:
+      - ./prometheus:/etc/prometheus:ro # bind the config directory so prometheus.yml is always present
       - prometheus_data:/prometheus
-    configs:
-      - source: prometheus_config
-        target: /etc/prometheus/prometheus.yml
-        mode: 0444
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
