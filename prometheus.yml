@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["prometheus:9090"]
+
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"]
+
+  - job_name: "node"
+    static_configs:
+      - targets: ["localhost:9100"] # node-exporter via host network
+
+  # Optional: enable if your n8n exposes /metrics and is on the monitoring network
+  # - job_name: "n8n"
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets: ["n8n:5678"]
+
+  # Optional: enable if Traefik metrics are exposed (e.g., :8080/metrics)
+  # - job_name: "traefik"
+  #   metrics_path: /metrics
+  #   static_configs:
+  #     - targets: ["traefik:8080"]
